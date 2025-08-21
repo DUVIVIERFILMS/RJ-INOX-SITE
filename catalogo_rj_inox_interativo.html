@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo RJ INOX - Excelência Técnica</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Montserrat:wght@700;900&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    
+    <style>
+        /* Cores personalizadas da Identidade Visual RJ INOX */
+        :root {
+            --color-red-rj: #E02020;
+            --color-black-absolute: #000000;
+            --color-white-pure: #FFFFFF;
+            --color-gray-chumbo: #4B4B4B;
+        }
+        
+        .bg-red-rj { background-color: var(--color-red-rj); }
+        .text-red-rj { color: var(--color-red-rj); }
+        .bg-black-absolute { background-color: var(--color-black-absolute); }
+        .text-black-absolute { color: var(--color-black-absolute); }
+        .bg-white-pure { background-color: var(--color-white-pure); }
+        .text-white-pure { color: var(--color-white-pure); }
+        .bg-gray-chumbo { background-color: var(--color-gray-chumbo); }
+        .text-gray-chumbo { color: var(--color-gray-chumbo); }
+
+        /* Fontes personalizadas */
+        .font-montserrat { font-family: 'Montserrat', sans-serif; }
+        .font-inter { font-family: 'Inter', sans-serif; }
+
+        /* Estilo geral do corpo */
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--color-black-absolute);
+            background-color: var(--color-white-pure);
+        }
+
+        /* Textura de aço escovado */
+        .steel-texture {
+            background: linear-gradient(45deg, #f0f0f0 25%, transparent 25%), 
+                        linear-gradient(-45deg, #f0f0f0 25%, transparent 25%), 
+                        linear-gradient(45deg, transparent 75%, #f0f0f0 75%), 
+                        linear-gradient(-45deg, transparent 75%, #f0f0f0 75%);
+            background-size: 2px 2px;
+            background-position: 0 0, 0 1px, 1px -1px, -1px 0px;
+        }
+
+        /* Hero section com gradiente */
+        .hero-gradient {
+            background: linear-gradient(135deg, var(--color-black-absolute) 0%, var(--color-gray-chumbo) 100%);
+        }
+
+        /* Animações */
+        .fade-in {
+            animation: fadeIn 0.8s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hover-scale {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .hover-scale:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Badge de destaque */
+        .excellence-badge {
+            background: linear-gradient(45deg, var(--color-red-rj), #ff4444);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 15px rgba(224, 32, 32, 0.3);
+        }
+
+        /* Botão CTA personalizado */
+        .cta-button {
+            background: linear-gradient(45deg, var(--color-red-rj), #ff4444);
+            border: none;
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(224, 32, 32, 0.3);
+            cursor: pointer;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(224, 32, 32, 0.4);
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 5% auto;
+            padding: 2rem;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 800px;
+            position: relative;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            position: absolute;
+            top: 15px;
+            right: 25px;
+        }
+
+        .close:hover {
+            color: var(--color-red-rj);
+        }
+
+        /* Navegação fixa */
+        .fixed-nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 100;
+            transition: all 0.3s ease;
+        }
+
+        .nav-scrolled {
+            background-color: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(10px);
+        }
+
+        /* Smooth scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Parallax effect */
+        .parallax {
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        /* Product grid responsivo */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        /* Filtros de produto */
+        .filter-button {
+            padding: 0.5rem 1rem;
+            border: 2px solid var(--color-red-rj);
+            background: transparent;
+            color: var(--color-red-rj);
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 0.25rem;
+        }
+
+        .filter-button.active,
+        .filter-button:hover {
+            background: var(--color-red-rj);
+            color: white;
+        }
+
+        /* Loading animation */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(224, 32, 32, 0.3);
+            border-radius: 50%;
+            border-top-color: var(--color-red-rj);
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navegação Fixa -->
+    <nav class="fixed-nav bg-black-absolute text-white-pure py-4 shadow-lg" id="navbar">
+        <div class="container mx-auto px-4 flex items-center justify-between">
+            <!-- Logo -->
+            <div class="flex items-center">
+                <span class="font-montserrat text-3xl font-black mr-1">RJ</span>
+                <span class="font-montserrat text-3xl font-black text-red-rj">INOX</span>
+            </div>
+            
+            <!-- Menu de Navegação -->
+            <div class="hidden md:flex space-x-6">
+                <a href="#home" class="hover:text-red-rj transition-colors duration-300">Início</a>
+                <a href="#about" class="hover:text-red-rj transition-colors duration-300">Sobre</a>
+                <a href="#products" class="hover:text-red-rj transition-colors duration-300">Produtos</a>
+                <a href="#process" class="hover:text-red-rj transition-colors duration-300">Processo</a>
+                <a href="#contact" class="hover:text-red-rj transition-colors duration-300">Contato</a>
+            </div>
+            
+            <!-- Menu Mobile -->
+            <button class="md:hidden" id="mobile-menu-btn">
+                <i class="fas fa-bars text-2xl"></i>
+            </button>
+        </div>
+        
+        <!-- Menu Mobile Dropdown -->
+        <div class="md:hidden hidden" id="mobile-menu">
+            <div class="px-4 pt-4 pb-2 space-y-2">
+                <a href="#home" class="block py-2 hover:text-red-rj transition-colors duration-300">Início</a>
+                <a href="#about" class="block py-2 hover:text-red-rj transition-colors duration-300">Sobre</a>
+                <a href="#products" class="block py-2 hover:text-red-rj transition-colors duration-300">Produtos</a>
+                <a href="#process" class="block py-2 hover:text-red-rj transition-colors duration-300">Processo</a>
+                <a href="#contact" class="block py-2 hover:text-red-rj transition-colors duration-300">Contato</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Seção Hero -->
+    <section id="home" class="hero-gradient text-white-pure py-32 relative overflow-hidden parallax">
+        <div class="steel-texture absolute inset-0 opacity-10"></div>
+        <div class="container mx-auto px-4 relative z-10 text-center">
+            <!-- Badge de Excelência -->
+            <div class="mb-8">
+                <span class="excellence-badge fade-in">PROJETOS EXCEPCIONAIS</span>
+            </div>
+            
+            <!-- Título Principal -->
+            <h1 class="font-montserrat text-5xl md:text-7xl font-black mb-6 fade-in">
+                EXCELÊNCIA<br>
+                <span class="text-red-rj">TÉCNICA</span>
+            </h1>
+            
+            <!-- Subtítulo -->
+            <p class="font-inter text-xl md:text-2xl max-w-4xl mx-auto mb-12 fade-in">
+                Móveis planejados em aço inox de <strong>alto desempenho</strong> para cozinhas industriais. 
+                Precisão, durabilidade e projetos sob medida que superam expectativas.
+            </p>
+            
+            <!-- CTAs -->
+            <div class="space-x-4 fade-in">
+                <button class="cta-button" onclick="scrollToSection('products')">
+                    VER PRODUTOS
+                </button>
+                <button class="cta-button bg-transparent border-2 border-white hover:bg-white hover:text-black" onclick="openModal('contact-modal')">
+                    SOLICITAR ORÇAMENTO
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção Sobre -->
+    <section id="about" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div class="fade-in">
+                    <h2 class="font-montserrat text-4xl font-bold text-black-absolute mb-6">
+                        SOBRE A <span class="text-red-rj">RJ INOX</span>
+                    </h2>
+                    <p class="font-inter text-lg text-gray-chumbo mb-6">
+                        Especializada na fabricação de móveis planejados em aço inox de alto desempenho, 
+                        a RJ INOX atende ao mercado B2B com foco em cozinhas industriais.
+                    </p>
+                    <p class="font-inter text-lg text-gray-chumbo mb-8">
+                        Nossa expertise inclui bancadas, estantes, cubas e equipamentos personalizados, 
+                        todos produzidos com materiais de primeira linha e processos de fabricação precisos.
+                    </p>
+                    
+                    <!-- Estatísticas -->
+                    <div class="grid grid-cols-3 gap-4">
+                        <div class="text-center">
+                            <div class="font-montserrat text-3xl font-black text-red-rj">+500</div>
+                            <div class="font-inter text-sm text-gray-chumbo">Projetos</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="font-montserrat text-3xl font-black text-red-rj">100%</div>
+                            <div class="font-inter text-sm text-gray-chumbo">Satisfação</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="font-montserrat text-3xl font-black text-red-rj">15+</div>
+                            <div class="font-inter text-sm text-gray-chumbo">Anos</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="fade-in">
+                    <img src="/home/ubuntu/upload/resultado_projeto.png" alt="Projeto RJ INOX" class="rounded-lg shadow-xl w-full">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção de Produtos -->
+    <section id="products" class="py-20 bg-white-pure">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="font-montserrat text-4xl md:text-5xl font-bold text-black-absolute mb-6">
+                    NOSSOS <span class="text-red-rj">PRODUTOS</span>
+                </h2>
+                <p class="font-inter text-lg text-gray-chumbo max-w-3xl mx-auto mb-8">
+                    Soluções sob medida para cozinhas industriais de alto desempenho
+                </p>
+                
+                <!-- Filtros de Produto -->
+                <div class="mb-8">
+                    <button class="filter-button active" data-filter="all">Todos</button>
+                    <button class="filter-button" data-filter="bancadas">Bancadas</button>
+                    <button class="filter-button" data-filter="estantes">Estantes</button>
+                    <button class="filter-button" data-filter="cubas">Cubas</button>
+                </div>
+            </div>
+            
+            <!-- Grid de Produtos -->
+            <div class="product-grid" id="products-grid">
+                <!-- Bancadas -->
+                <div class="product-card bancadas bg-white rounded-lg shadow-lg overflow-hidden hover-scale" data-category="bancadas">
+                    <img src="/home/ubuntu/upload/bancada_aco_inox.png" alt="Bancada de Aço Inox" class="w-full h-64 object-cover">
+                    <div class="p-6">
+                        <h3 class="font-montserrat text-xl font-bold text-black-absolute mb-3">Bancadas de Precisão</h3>
+                        <p class="font-inter text-gray-chumbo mb-4">
+                            Superfícies de trabalho robustas e funcionais, projetadas para máxima durabilidade e higiene.
+                        </p>
+                        <div class="flex items-center justify-between">
+                            <div class="text-red-rj font-semibold">
+                                <i class="fas fa-check mr-2"></i>Aço Inox 304/316
+                            </div>
+                            <button class="cta-button text-sm py-2 px-4" onclick="openProductModal('bancadas')">
+                                VER DETALHES
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Estantes -->
+                <div class="product-card estantes bg-white rounded-lg shadow-lg overflow-hidden hover-scale" data-category="estantes">
+                    <img src="/home/ubuntu/upload/estante_aco_inox.png" alt="Estante de Aço Inox" class="w-full h-64 object-cover">
+                    <div class="p-6">
+                        <h3 class="font-montserrat text-xl font-bold text-black-absolute mb-3">Estantes Industriais</h3>
+                        <p class="font-inter text-gray-chumbo mb-4">
+                            Soluções de armazenamento versáteis e resistentes para organização eficiente do espaço.
+                        </p>
+                        <div class="flex items-center justify-between">
+                            <div class="text-red-rj font-semibold">
+                                <i class="fas fa-check mr-2"></i>Alta Capacidade
+                            </div>
+                            <button class="cta-button text-sm py-2 px-4" onclick="openProductModal('estantes')">
+                                VER DETALHES
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Cubas -->
+                <div class="product-card cubas bg-white rounded-lg shadow-lg overflow-hidden hover-scale" data-category="cubas">
+                    <img src="/home/ubuntu/upload/cuba_aco_inox.png" alt="Cuba de Aço Inox" class="w-full h-64 object-cover">
+                    <div class="p-6">
+                        <h3 class="font-montserrat text-xl font-bold text-black-absolute mb-3">Cubas Profissionais</h3>
+                        <p class="font-inter text-gray-chumbo mb-4">
+                            Cubas com acabamento sanitário, ideais para lavagem e preparo de alimentos.
+                        </p>
+                        <div class="flex items-center justify-between">
+                            <div class="text-red-rj font-semibold">
+                                <i class="fas fa-check mr-2"></i>Soldagem Invisível
+                            </div>
+                            <button class="cta-button text-sm py-2 px-4" onclick="openProductModal('cubas')">
+                                VER DETALHES
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção de Processo -->
+    <section id="process" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="font-montserrat text-4xl md:text-5xl font-bold text-black-absolute mb-6">
+                    NOSSO <span class="text-red-rj">PROCESSO</span>
+                </h2>
+                <p class="font-inter text-lg text-gray-chumbo max-w-3xl mx-auto">
+                    Planejamento detalhado e preciso em cada etapa do projeto
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Planejamento -->
+                <div class="bg-white rounded-lg shadow-lg p-8 text-center hover-scale">
+                    <div class="w-16 h-16 bg-red-rj rounded-full flex items-center justify-center mx-auto mb-6">
+                        <span class="font-montserrat text-2xl font-black text-white">1</span>
+                    </div>
+                    <h3 class="font-montserrat text-2xl font-bold text-black-absolute mb-4">PLANEJAMENTO</h3>
+                    <p class="font-inter text-gray-chumbo mb-6">
+                        Análise detalhada das necessidades e desenvolvimento de soluções personalizadas
+                    </p>
+                    <div class="text-red-rj font-inter font-semibold">Detalhado e Preciso</div>
+                </div>
+                
+                <!-- Produção -->
+                <div class="bg-white rounded-lg shadow-lg p-8 text-center hover-scale">
+                    <div class="w-16 h-16 bg-red-rj rounded-full flex items-center justify-center mx-auto mb-6">
+                        <span class="font-montserrat text-2xl font-black text-white">2</span>
+                    </div>
+                    <h3 class="font-montserrat text-2xl font-bold text-black-absolute mb-4">PRODUÇÃO</h3>
+                    <p class="font-inter text-gray-chumbo mb-6">
+                        Execução com máxima precisão utilizando tecnologia de ponta
+                    </p>
+                    <div class="text-red-rj font-inter font-semibold">Máxima Precisão</div>
+                </div>
+                
+                <!-- Resultado -->
+                <div class="bg-white rounded-lg shadow-lg p-8 text-center hover-scale">
+                    <div class="w-16 h-16 bg-red-rj rounded-full flex items-center justify-center mx-auto mb-6">
+                        <span class="font-montserrat text-2xl font-black text-white">3</span>
+                    </div>
+                    <h3 class="font-montserrat text-2xl font-bold text-black-absolute mb-4">RESULTADO</h3>
+                    <p class="font-inter text-gray-chumbo mb-6">
+                        Entrega de projetos excepcionais que superam expectativas
+                    </p>
+                    <div class="text-red-rj font-inter font-semibold">Excelência Técnica</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção de Contato -->
+    <section id="contact" class="py-20 bg-red-rj text-white">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="font-montserrat text-4xl md:text-5xl font-bold mb-6">
+                VAMOS CRIAR ALGO EXCEPCIONAL
+            </h2>
+            <p class="font-inter text-xl mb-12 max-w-3xl mx-auto">
+                Entre em contato conosco para discutir seu próximo projeto
+            </p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-white text-red-rj rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-phone text-2xl"></i>
+                    </div>
+                    <h3 class="font-montserrat font-bold mb-2">TELEFONE</h3>
+                    <p class="font-inter">(21) 3000-0000</p>
+                </div>
+                
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-white text-red-rj rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-envelope text-2xl"></i>
+                    </div>
+                    <h3 class="font-montserrat font-bold mb-2">E-MAIL</h3>
+                    <p class="font-inter">contato@rjinox.com.br</p>
+                </div>
+                
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-white text-red-rj rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-map-marker-alt text-2xl"></i>
+                    </div>
+                    <h3 class="font-montserrat font-bold mb-2">LOCALIZAÇÃO</h3>
+                    <p class="font-inter">Rio de Janeiro, RJ</p>
+                </div>
+            </div>
+            
+            <div class="space-x-4">
+                <button class="cta-button bg-white text-red-rj hover:bg-gray-100" onclick="openModal('contact-modal')">
+                    SOLICITAR ORÇAMENTO
+                </button>
+                <button class="cta-button bg-transparent border-2 border-white hover:bg-white hover:text-red-rj">
+                    FALAR COM ESPECIALISTA
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black-absolute text-white py-8">
+        <div class="container mx-auto px-4 text-center">
+            <div class="flex items-center justify-center mb-4">
+                <span class="font-montserrat text-2xl font-black mr-1">RJ</span>
+                <span class="font-montserrat text-2xl font-black text-red-rj">INOX</span>
+            </div>
+            <p class="font-inter text-gray-400">
+                © 2024 RJ INOX. Todos os direitos reservados. Excelência técnica em aço inox.
+            </p>
+        </div>
+    </footer>
+
+    <!-- Modal de Contato -->
+    <div id="contact-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('contact-modal')">&times;</span>
+            <h2 class="font-montserrat text-2xl font-bold text-black-absolute mb-6">Solicitar Orçamento</h2>
+            <form id="contact-form">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                    <input type="text" placeholder="Nome" class="p-3 border border-gray-300 rounded-lg" required>
+                    <input type="email" placeholder="E-mail" class="p-3 border border-gray-300 rounded-lg" required>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                    <input type="tel" placeholder="Telefone" class="p-3 border border-gray-300 rounded-lg" required>
+                    <input type="text" placeholder="Empresa" class="p-3 border border-gray-300 rounded-lg">
+                </div>
+                <textarea placeholder="Descreva seu projeto..." rows="4" class="w-full p-3 border border-gray-300 rounded-lg mb-4" required></textarea>
+                <button type="submit" class="cta-button w-full">
+                    ENVIAR SOLICITAÇÃO
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal de Produto -->
+    <div id="product-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('product-modal')">&times;</span>
+            <div id="product-modal-content">
+                <!-- Conteúdo será inserido dinamicamente -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Navegação suave
+        function scrollToSection(sectionId) {
+            document.getElementById(sectionId).scrollIntoView({
+                behavior: 'smooth'
+            });
+        }
+
+        // Controle de modais
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = 'block';
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        // Fechar modal clicando fora
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = 'none';
+            }
+        }
+
+        // Navegação responsiva
+        document.getElementById('mobile-menu-btn').addEventListener('click', function() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Efeito de scroll na navegação
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 100) {
+                navbar.classList.add('nav-scrolled');
+            } else {
+                navbar.classList.remove('nav-scrolled');
+            }
+        });
+
+        // Filtros de produto
+        document.querySelectorAll('.filter-button').forEach(button => {
+            button.addEventListener('click', function() {
+                // Remove active de todos os botões
+                document.querySelectorAll('.filter-button').forEach(btn => btn.classList.remove('active'));
+                // Adiciona active ao botão clicado
+                this.classList.add('active');
+                
+                const filter = this.getAttribute('data-filter');
+                const products = document.querySelectorAll('.product-card');
+                
+                products.forEach(product => {
+                    if (filter === 'all' || product.classList.contains(filter)) {
+                        product.style.display = 'block';
+                    } else {
+                        product.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Modal de produto
+        function openProductModal(productType) {
+            const modalContent = document.getElementById('product-modal-content');
+            
+            const productData = {
+                bancadas: {
+                    title: 'Bancadas de Precisão',
+                    image: '/home/ubuntu/upload/bancada_aco_inox.png',
+                    description: 'Nossas bancadas são fabricadas com aço inox de alta qualidade, oferecendo superfícies de trabalho robustas e funcionais.',
+                    features: [
+                        'Aço inox 304 ou 316',
+                        'Acabamento escovado ou polido',
+                        'Soldagem TIG de alta qualidade',
+                        'Cantos arredondados sanitários',
+                        'Prateleiras inferiores opcionais',
+                        'Dimensões personalizadas'
+                    ]
+                },
+                estantes: {
+                    title: 'Estantes Industriais',
+                    image: '/home/ubuntu/upload/estante_aco_inox.png',
+                    description: 'Estantes versáteis e resistentes, projetadas para organização eficiente em cozinhas industriais.',
+                    features: [
+                        'Modelos lisos ou ripados',
+                        'Capacidade de carga elevada',
+                        'Estrutura reforçada',
+                        'Fácil montagem e desmontagem',
+                        'Regulagem de altura',
+                        'Acabamento sanitário'
+                    ]
+                },
+                cubas: {
+                    title: 'Cubas Profissionais',
+                    image: '/home/ubuntu/upload/cuba_aco_inox.png',
+                    description: 'Cubas com acabamento sanitário perfeito, ideais para lavagem e preparo de alimentos.',
+                    features: [
+                        'Soldagem invisível',
+                        'Cantos arredondados sanitários',
+                        'Válvulas de alta qualidade',
+                        'Torneiras profissionais',
+                        'Dimensões sob medida',
+                        'Certificação sanitária'
+                    ]
+                }
+            };
+            
+            const product = productData[productType];
+            
+            modalContent.innerHTML = `
+                <h2 class="font-montserrat text-2xl font-bold text-black-absolute mb-6">${product.title}</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <img src="${product.image}" alt="${product.title}" class="w-full rounded-lg shadow-lg">
+                    </div>
+                    <div>
+                        <p class="font-inter text-gray-chumbo mb-6">${product.description}</p>
+                        <h3 class="font-montserrat text-lg font-bold text-black-absolute mb-4">Características:</h3>
+                        <ul class="space-y-2 mb-6">
+                            ${product.features.map(feature => `
+                                <li class="flex items-center">
+                                    <i class="fas fa-check text-red-rj mr-3"></i>
+                                    <span class="font-inter text-gray-chumbo">${feature}</span>
+                                </li>
+                            `).join('')}
+                        </ul>
+                        <button class="cta-button w-full" onclick="openModal('contact-modal'); closeModal('product-modal');">
+                            SOLICITAR ORÇAMENTO
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            openModal('product-modal');
+        }
+
+        // Formulário de contato
+        document.getElementById('contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Simular envio
+            const button = this.querySelector('button[type="submit"]');
+            const originalText = button.innerHTML;
+            
+            button.innerHTML = '<span class="loading"></span> ENVIANDO...';
+            button.disabled = true;
+            
+            setTimeout(() => {
+                button.innerHTML = '<i class="fas fa-check mr-2"></i> ENVIADO COM SUCESSO!';
+                button.classList.add('bg-green-500');
+                
+                setTimeout(() => {
+                    closeModal('contact-modal');
+                    button.innerHTML = originalText;
+                    button.disabled = false;
+                    button.classList.remove('bg-green-500');
+                    this.reset();
+                }, 2000);
+            }, 2000);
+        });
+
+        // Animações de entrada
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in');
+                }
+            });
+        }, observerOptions);
+
+        // Observar elementos para animação
+        document.querySelectorAll('section > div').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
+
